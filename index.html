@@ -655,6 +655,7 @@ function viewAnswerKey(){ state.screen="teacherAnswerKey"; render(); }
 function viewPrintable(){ state.screen="teacherPrintable"; render(); }
 function viewTemaAnalysis(){ state.screen="teacherTemaAnalysis"; render(); }
 function viewDifficulty(){ state.screen="teacherDifficulty"; render(); }
+function viewAccessList(){ state.screen="teacherAccessList"; render(); }
 function doPrint(){ window.print(); }
 
 async function submitExam(auto){
@@ -1146,6 +1147,17 @@ function renderSpecTable(){
     <div id="flash-msg" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:4px;font-size:13.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);"></div>`;
 }
 
+function renderAccessList(){
+  const rows = STUDENT_ROSTER.map((s,idx)=>`<tr><td>${idx+1}</td><td>${esc(s.ap1)} ${esc(s.ap2)} ${esc(s.nombre)}</td><td class="mono">${esc(s.cedula)}</td><td>${esc(s.seccion)}</td></tr>`).join("");
+  return `${logoHeader()}<div class="topbar"><div class="topbar-inner"><div class="brand">Lista de acceso de estudiantes<small>Desarrollo Web — con qué ingresan al examen</small></div><button class="btn btn-ghost-nav btn-small" data-action="to-dashboard">Volver al panel</button></div></div>
+    <div class="wrap"><div class="tpanel">
+      <p class="hint">Cada estudiante ingresa eligiendo su nombre en la lista y escribiendo su propia cédula (la misma de esta tabla) para confirmar identidad. No hay usuario ni contraseña aparte. Esta lista es solo para vos, como docente — no la compartás con el grupo.</p>
+      <div style="overflow-x:auto;"><table class="subs"><thead><tr><th>#</th><th>Nombre completo</th><th>Cédula</th><th>Sección</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+      <button class="btn btn-ghost" style="margin-top:16px;" data-action="do-print">Imprimir esta lista</button>
+    </div></div>`;
+}
+
 function renderAnswerKey(){
   const su = PART_SU.map(q=>{
     const opts = q.options.map(([k,l])=>`<div style="${k===q.correct?'color:var(--good);font-weight:700;':''}">${k}) ${esc(l)}${k===q.correct?' ✓ correcta':''}</div>`).join("");
@@ -1387,6 +1399,7 @@ function renderTeacherDashboard(){
           <button class="btn btn-ghost btn-small" data-action="view-printable">Descargar examen en PDF</button>
           <button class="btn btn-ghost btn-small" data-action="view-tema-analysis">Análisis por tema (grupo)</button>
           <button class="btn btn-ghost btn-small" data-action="view-difficulty">Dificultad por pregunta</button>
+          <button class="btn btn-ghost btn-small" data-action="view-access-list">Lista de acceso de estudiantes</button>
         </div>
         <h3>Datos de la prueba</h3>
         <div class="grid2">
@@ -1426,6 +1439,7 @@ function render(){
   else if(state.screen==="teacherPrintable") html = renderPrintable();
   else if(state.screen==="teacherTemaAnalysis") html = renderTemaAnalysis();
   else if(state.screen==="teacherDifficulty") html = renderDifficulty();
+  else if(state.screen==="teacherAccessList") html = renderAccessList();
   app.innerHTML = html;
   if(state.screen==="exam"){ updateMatchOptions(); updateIdOptions(); }
 }
@@ -1442,6 +1456,7 @@ document.addEventListener("click", (e)=>{
   else if(action==="toggle-reveal") toggleReveal();
   else if(action==="view-tema-analysis") viewTemaAnalysis();
   else if(action==="view-difficulty") viewDifficulty();
+  else if(action==="view-access-list") viewAccessList();
   else if(action==="save-config") saveConfig();
   else if(action==="reload-config") reloadConfig();
   else if(action==="preview-exam") previewExam();
