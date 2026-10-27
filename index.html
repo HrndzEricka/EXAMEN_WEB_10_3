@@ -401,7 +401,7 @@ const DEFAULT_CONFIG = {
    tal cual: solo hay que implementarlo de nuevo contra una Hoja NUEVA
    y pegar aquí la URL /exec que te entregue esa implementación.
    ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbzG8pq737AHp0roTyzuJVkTYwjKEMofeQfHYzvM140zwF-_DFagc-YXAo3cvlRPwbpNcA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwHbugV68C-Tdxwp9jKCfKdJwbCrOg9qsjy_z2D1t4fOjuIRuHbP-wE-9c69fCiJTrl/exec";
 
 function backendConfigured(){ return API_URL && API_URL.indexOf("PEGA_AQUI") === -1; }
 function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
@@ -509,7 +509,7 @@ const state = {
 };
 
 let saveTimeout = null;
-function scheduleSaveProgress(){ clearTimeout(saveTimeout); saveTimeout = setTimeout(saveProgress, 700); }
+function scheduleSaveProgress(){ clearTimeout(saveTimeout); saveTimeout = setTimeout(saveProgress, 2500); }
 async function saveProgress(){
   if(state.screen!=="exam" || state.previewMode) return;
   await saveProgressRemote({ id:state.student.cedula, nombre:state.student.nombre, cedula:state.student.cedula, seccion:state.student.seccion, answers:state.answers, startTime:state.startTime, tabWarnings: state.tabWarnings||0, suOrder:state.suOrder, vfOrder:state.vfOrder, cOrder:state.cOrder, rcOrder:state.rcOrder });
