@@ -383,7 +383,7 @@ const DEFAULT_CONFIG = {
   enabled:true,
   institucion:"CTP Mercedes Norte",
   asignatura:"Prueba Comprensiva Desarrollo Web",
-  subarea:"Fundamentos de Ciberseguridad aplicados a Desarrollo Web",
+  subarea:"Fundamentos de Desarrollo Web",
   docente:"M.Sc. Ericka Hernández Mena — Docente Técnica",
   nivel:"Décimo",
   seccion:"10-3",
@@ -401,7 +401,7 @@ const DEFAULT_CONFIG = {
    tal cual: solo hay que implementarlo de nuevo contra una Hoja NUEVA
    y pegar aquí la URL /exec que te entregue esa implementación.
    ============================================================ */
-const API_URL = "PEGA_AQUI_TU_URL_DE_GOOGLE_APPS_SCRIPT";
+const API_URL = "https://script.google.com/macros/s/AKfycbzG8pq737AHp0roTyzuJVkTYwjKEMofeQfHYzvM140zwF-_DFagc-YXAo3cvlRPwbpNcA/exec";
 
 function backendConfigured(){ return API_URL && API_URL.indexOf("PEGA_AQUI") === -1; }
 function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
